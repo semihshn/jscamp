@@ -1,20 +1,13 @@
 import BusinessRules from "../core/utilities/businessRules.js";
-import { users } from "../data/users.js";
-import DataError from "../models/dataError.js";
+import CustomerDao from "../dataAccess/customerDao.js";
 import UserService from "./userService.js";
 
 export default class CustomerService {
-  constructor(loggerService) {
-    this.customers = [];
+  constructor(loggerService,customerDao) {
+    this.customerDao = customerDao
     this.loggerService = loggerService;
     this.userService = new UserService();
     this.businessRules = new BusinessRules();
-
-    users.map((u) => {
-      if (u.type === "customer") {
-        this.customers.push(u);
-      }
-    });
   }
 
   add(customer) {
@@ -33,21 +26,21 @@ export default class CustomerService {
     if (!result) {
       return result;
     }else {
-        this.customers.push(customer);
+        this.customerDao.add(customer);
         this.loggerService.log(customer.firstName);
     }
   }
 
   listCustomers() {
-    return this.customers;
+    return this.customerDao.getAll();
   }
 
   getCustomerById(id) {
-    return this.customers.find((u) => u.id === id);
+    return this.customerDao.getAll().find((u) => u.id === id);
   }
 
   getCustomersSorted() {
-    return this.customers.sort((customer1, customer2) => {
+    return this.customerDao.getAll().sort((customer1, customer2) => {
       if (customer1.firstName > customer2.firstName) {
         return 1;
       } else if (customer1.firstName === customer2.firstName) {

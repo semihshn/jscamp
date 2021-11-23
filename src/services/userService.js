@@ -1,12 +1,13 @@
 import BusinessRules from "../core/utilities/businessRules.js"
 import { users } from "../data/users.js"
+import UserDao from "../dataAccess/userDao.js"
 import DataError from "../models/dataError.js"
 import CustomerService from "./customerService.js"
 import EmployeeService from "./employeeService.js"
 
 export default class UserService{
-    constructor(loggerService) {
-        this.users = []
+    constructor(loggerService,userDao) {
+        this.userDao=userDao
         this.errors = []
         this.loggerService = loggerService
     }
@@ -21,7 +22,7 @@ export default class UserService{
             return result;
         }
             
-        this.users.push(user)
+        this.userDao.add(user)
         this.loggerService.log(user.firstName)
     }
 

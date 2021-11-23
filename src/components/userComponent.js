@@ -1,16 +1,19 @@
-import { MongoLogger } from "../crossCuttingConcerns/logging/logger.js"
+import { MongoLogger } from "../core/logging/mongoLogger.js"
 import Customer from "../models/customer.js"
 import User from "../models/user.js"
 import UserService from "../services/userService.js"
 import CustomerService from "../services/customerService.js"
 import EmployeeService from "../services/employeeService.js"
 import Employee from "../models/employee.js"
+import CustomerDao from "../dataAccess/customerDao.js"
+import EmployeeDao from "../dataAccess/employeeDao.js"
+import UserDao from "../dataAccess/userDao.js"
 
 console.log("User component yüklendi")
 
-let userService = new UserService(new MongoLogger())
-let customerService = new CustomerService(new MongoLogger())
-let employeeService = new EmployeeService(new MongoLogger())
+let userService = new UserService(new MongoLogger(),new UserDao())
+let customerService = new CustomerService(new MongoLogger(),new CustomerDao())
+let employeeService = new EmployeeService(new MongoLogger(),new EmployeeDao())
 
 let user1 = new User(1,"Engin","Demiroğ","Ankara")
 let user2 = new User(2,"Baran","Gökçekli","Muğla")
@@ -41,8 +44,8 @@ employeeToAdd.type = "employee"
 
 customerService.add(customerToAdd)
 employeeService.add(employeeToAdd)
-console.log(customerService.customers)
-console.log(employeeService.employees)
+console.log(customerService.listCustomers())
+console.log(employeeService.listEmployees())
 console.log(userService.errors)
 console.log(customerService.getCustomersSorted())
 //22.00 Dersteyiz
