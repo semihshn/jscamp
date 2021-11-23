@@ -30,12 +30,12 @@ export default class CustomerService {
       this.userService.checkOfAge(customer)
     );
 
-    if (result) {
+    if (!result) {
       return result;
+    }else {
+        this.customers.push(customer);
+        this.loggerService.log(customer.firstName);
     }
-
-    this.customers.push(customer);
-    this.loggerService.log(customer.firstName);
   }
 
   listCustomers() {

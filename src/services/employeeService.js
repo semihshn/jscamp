@@ -29,13 +29,13 @@ export default class EmployeeService {
         "city",
         "salary"
       )
-    );
+    )
 
-    if (result) {
+    if (!result) {
       return result;
+    }else {
+        this.employees.push(employee);
+        this.loggerService.log(employee.firstName);
     }
-
-    this.employees.push(employee);
-    this.loggerService.log(employee.firstName);
   }
 }

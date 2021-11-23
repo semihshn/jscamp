@@ -33,10 +33,10 @@ console.log(customer.lastName)
 console.log("--------------------------")
 
 
-let customerToAdd = new Customer(1,"Seda","Yılmaz","Ankara","23");
+let customerToAdd = new Customer(1,"Seda","Yılmaz","Ankara","26","123456");
 customerToAdd.type = "customer"
 
-let employeeToAdd = new Employee(1,"Semih","Şahan","Kahramanmaraş","sadf","3500");
+let employeeToAdd = new Employee(1,"Semih","Şahan","Kahramanmaraş","22","3500");
 employeeToAdd.type = "employee"
 
 customerService.add(customerToAdd)
